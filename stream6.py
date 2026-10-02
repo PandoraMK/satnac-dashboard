@@ -56,7 +56,7 @@ ONSITE_ENGINEERS = [
     "Sipho Khumalo (Rigging Crew #1 Lead)",
     "Johan Nel (Fiber & Field Specialist)",
     "Naledi Zwane (Power & Transmissions Technician)",
-    "Babedi Modieginyane (Emergency Response Lead)",
+    "Babedi Modieginyane (Intern)",
     "Penelope Suke (Cell Tower Hardware Tech)",
 ]
 
