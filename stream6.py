@@ -43,6 +43,23 @@ if "audit_log" not in st.session_state:
 if "node_trigger_times" not in st.session_state:
   st.session_state.node_trigger_times = {}
 
+# --- AVAILABLE PERSONNEL ROSTERS ---
+NOC_OPERATORS = [
+    "Modiri Mokaila (NOC Lead)",
+    "Thabo Mokoena (Senior NOC Engineer)",
+    "Lerato Molefe (NOC Operations Specialist)",
+    "Aisha Patel (Network Reliability Analyst)",
+    "Pieter van der Merwe (Principal Incident Commander)",
+]
+
+ONSITE_ENGINEERS = [
+    "Sipho Khumalo (Rigging Crew #3 Lead)",
+    "Johan van der Merwe (Fiber & RF Field Specialist)",
+    "Naledi Zwane (Power & Transmissions Technician)",
+    "David Naidoo (Emergency Response Lead)",
+    "Kagiso Mokoena (Cell Tower Hardware Tech)",
+]
+
 # --- COMPREHENSIVE FEATURE NAME MAPPING (Raw/Engineered -> Operator-Friendly Terms) ---
 FEATURE_MAPPING = {
     # Rolling Volatility & Deltas
@@ -87,10 +104,11 @@ risk_threshold = st.sidebar.slider(
     ),
 )
 
-operator_name = st.sidebar.text_input(
+operator_name = st.sidebar.selectbox(
     "NOC Desk Operator / Lead",
-    value="Modiri Mokaila",
-    help="Identifies the console operator managing the session.",
+    options=NOC_OPERATORS,
+    index=0,
+    help="Select the active console operator managing this session.",
 )
 
 if st.sidebar.button("🔄 Clear App Cache"):
@@ -387,13 +405,13 @@ with left_col:
 
     with col_act2:
       st.markdown("#### Physical On-Site Dispatch")
-      onsite_tech_input = st.text_input(
-          "On-Site Field Technician Name",
-          value="Sipho Khumalo (Rigging Crew #3)",
-          key=f"onsite_input_{selected_node}",
+      onsite_tech_select = st.selectbox(
+          "Select On-Site Field Technician",
+          options=ONSITE_ENGINEERS,
+          key=f"onsite_select_{selected_node}",
           help=(
-              "Name of the engineer physically at the tower/site to repair the"
-              " fault."
+              "Select the engineer physically dispatched to the tower site to"
+              " repair the hardware/fault."
           ),
       )
       if st.button(
@@ -405,14 +423,14 @@ with left_col:
             node_row["risk_score"],
             action_type="PHYSICAL_BYPASS",
             operator=operator_name,
-            onsite_technician=onsite_tech_input,
+            onsite_technician=onsite_tech_select,
         )
         st.session_state.bypassed_nodes.append(selected_node)
         st.session_state.audit_log.insert(0, payload)
         st.warning(
             f"Physical bypass engaged for {selected_node}. On-site technician"
-            f" '{onsite_tech_input}' logged as present on location. AI triggers"
-            " suppressed."
+            f" '{onsite_tech_select}' logged as present on location. AI"
+            " triggers suppressed."
         )
         st.rerun()
 
@@ -705,7 +723,7 @@ st.markdown("---")
 st.subheader("📋 Automated Action Audit Trail & API Event Log")
 st.markdown(
     "Live ledger of dispatched ITSM/Amdocs webhooks and autonomous/manual"
-    " remediation actions, including NOC and on-site operator stamps."
+    " remediation actions, including NOC desk and on-site operator rosters."
 )
 
 if st.session_state.audit_log:
