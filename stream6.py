@@ -46,18 +46,18 @@ if "node_trigger_times" not in st.session_state:
 # --- AVAILABLE PERSONNEL ROSTERS ---
 NOC_OPERATORS = [
     "Modiri Mokaila (NOC Lead)",
-    "Thabo Mokoena (Senior NOC Engineer)",
-    "Lerato Molefe (NOC Operations Specialist)",
+    "Olwethu Mabena (Senior NOC Engineer)",
+    "Khumbudzo Mukwevho (NOC Operations Specialist)",
     "Aisha Patel (Network Reliability Analyst)",
     "Pieter van der Merwe (Principal Incident Commander)",
 ]
 
 ONSITE_ENGINEERS = [
-    "Sipho Khumalo (Rigging Crew #3 Lead)",
-    "Johan van der Merwe (Fiber & RF Field Specialist)",
+    "Sipho Khumalo (Rigging Crew #1 Lead)",
+    "Johan Nel (Fiber & Field Specialist)",
     "Naledi Zwane (Power & Transmissions Technician)",
-    "David Naidoo (Emergency Response Lead)",
-    "Kagiso Mokoena (Cell Tower Hardware Tech)",
+    "Babedi Modieginyane (Emergency Response Lead)",
+    "Penelope Suke (Cell Tower Hardware Tech)",
 ]
 
 # --- COMPREHENSIVE FEATURE NAME MAPPING (Raw/Engineered -> Operator-Friendly Terms) ---
